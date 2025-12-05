@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-10">
+    <h1 class="text-3xl text-bold mb-2">Salom, dasturchi!</h1>
+    <p class="text-gray-500">O'zbek tilida o'rganish va yaratishda davom etamiz.</p>
+</div>
+
+<div class="space-y-0">
+    {% for post in posts %}
+    <div class="group flex justify-between items-baseline border-b border-gray-200 py-4 hover:bg-gray-50 transition px-2 -mx-2 rounded">
+        <a href="{{ url_for('blog.post_detail', slug=post.slug) }}" class="text-lg font-medium group-hover:underline">
+            {{ post.title }}
+        </a>
+        <span class="text-sm text-gray-400 font-mono shrink-0 ml-4">{{ post.date }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

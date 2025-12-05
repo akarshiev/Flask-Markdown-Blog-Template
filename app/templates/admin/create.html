@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}{% if post %}Edit: {{ post.title }}{% else %}New Post{% endif %}{% endblock %}
+
+{% block content %}
+<div class="mb-6 border-b pb-4">
+    <h1 class="text-2xl font-bold">{% if post %}Edit Post{% else %}Publisher{% endif %}</h1>
+</div>
+
+<div class="p-4 bg-gray-50 border border-gray-200 rounded mb-6">
+    <h2 class="font-medium mb-2">Rasmlarni yuklash (Step-by-step uchun)</h2>
+    <form id="image-upload-form" enctype="multipart/form-data" class="flex items-center space-x-4">
+        <input type="file" name="images" id="image-input" multiple
+               class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-black hover:file:bg-gray-100">
+        <button type="submit" class="bg-black text-white px-4 py-2 rounded text-sm hover:bg-gray-800 transition">
+            Yuklash
+        </button>
+    </form>
+
+    <div id="image-results" class="mt-4 space-y-2 text-sm">
+    </div>
+</div>
+
+<form method="POST" class="space-y-6">
+    <div>
+        <input type="text" name="title" placeholder="Post Title..." required
+               value="{% if post %}{{ post.title }}{% endif %}"
+               class="w-full text-xl font-bold border-b border-gray-300 py-2 focus:outline-none focus:border-black">
+    </div>
+
+    <div>
+            <textarea name="content" rows="20" placeholder="Write your markdown here..." required
+                      class="w-full border border-gray-300 p-4 rounded focus:outline-none focus:border-black font-mono text-sm">{% if post %}{{ post.raw_content | safe }}{% endif %}</textarea>
+        <p class="text-xs text-gray-400 mt-2">Markdown qo'llab-quvvatlanadi. Rasmlarni yuklash bo'limidan URL-larni
+            nusxalang.</p>
+    </div>
+
+    <div class="flex justify-end">
+        <button type="submit"
+                class="bg-white border border-black text-black px-6 py-2 rounded hover:bg-black hover:text-white transition">
+            {% if post %}Update{% else %}Publish{% endif %}
+        </button>
+    </div>
+</form>
+
+<script>
+    document.getElementById('image-upload-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const resultsDiv = document.getElementById('image-results');
+        resultsDiv.innerHTML = '<p class="text-blue-500">Yuklanmoqda...</p>';
+
+        fetch('{{ url_for("admin.upload_image") }}', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                resultsDiv.innerHTML = '';
+                if (data.status === 'success' && data.images.length > 0) {
+                    data.images.forEach(img => {
+                        const markdownTag = `![${img.filename}](${img.url})`;
+                        const p = document.createElement('p');
+                        p.className = 'bg-white p-2 border rounded flex justify-between items-center';
+                        p.innerHTML = `
+                            <code class="truncate mr-4 flex-grow">${markdownTag}</code>
+                            <button class="copy-markdown text-xs text-blue-600 hover:text-black" data-markdown="${markdownTag}">
+                                Copy
+                            </button>
+                        `;
+                        resultsDiv.appendChild(p);
+                    });
+                    document.getElementById('image-input').value = '';
+
+                    document.querySelectorAll('.copy-markdown').forEach(button => {
+                        button.addEventListener('click', function () {
+                            const markdown = this.getAttribute('data-markdown');
+                            navigator.clipboard.writeText(markdown).then(() => {
+                                this.textContent = 'Copied!';
+                                setTimeout(() => this.textContent = 'Copy', 2000);
+                            });
+                        });
+                    });
+
+                } else {
+                    resultsDiv.innerHTML = '<p class="text-red-500">Rasm yuklashda xatolik yuz berdi.</p>';
+                }
+            })
+            .catch(error => {
+                resultsDiv.innerHTML = `<p class="text-red-500">Xatolik: ${error}</p>`;
+            });
+    });
+</script>
+{% endblock %}
