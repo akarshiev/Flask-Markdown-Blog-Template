@@ -1,7 +1,7 @@
 # Flask Markdown Blog & Portfolio Template
 
 A minimalist, fast personal blog and portfolio built with **Flask**. Posts are
-plain Markdown files — no database, no admin panel, no CMS. Deploys free on
+plain Markdown files - no database, no admin panel, no CMS. Deploys free on
 Vercel in minutes. Personalize the entire site by editing a single config file.
 
 > Live example: [abdukarim.uz](https://abdukarim.uz)
@@ -15,16 +15,16 @@ Vercel in minutes. Personalize the entire site by editing a single config file.
 
 ## Features
 
-- **Markdown posts** — write in `.md`, the filename becomes the URL. No database.
-- **One-file setup** — all personalization lives in `config.py`.
-- **Dark, minimal design** — floating pill navbar, JetBrains Mono, amber accent.
-- **Syntax highlighting** — fenced code blocks via Pygments.
-- **Live GitHub projects** — the Building page pulls your public repos automatically.
-- **Bookmarks** — a curated links page, editable via one JSON file.
-- **Resume page** — embeds your PDF with a download button.
-- **SEO built in** — meta tags, Open Graph, Twitter cards, JSON-LD, `sitemap.xml`, `robots.txt`.
-- **Reading experience** — reading time, progress bar, copy-code buttons, share button.
-- **Zero build step** — plain CSS, ships as-is. Deploys free on Vercel.
+- **Markdown posts** - write in `.md`, the filename becomes the URL. No database.
+- **One-file setup** - all personalization lives in `config.py`.
+- **Dark, minimal design** - floating pill navbar, JetBrains Mono, amber accent.
+- **Syntax highlighting** - fenced code blocks via Pygments.
+- **Live GitHub projects** - the Building page pulls your public repos automatically.
+- **Bookmarks** - a curated links page, editable via one JSON file.
+- **Resume page** - embeds your PDF with a download button.
+- **SEO built in** - meta tags, Open Graph, Twitter cards, JSON-LD, `sitemap.xml`, `robots.txt`.
+- **Reading experience** - reading time, progress bar, copy-code buttons, share button.
+- **Zero build step** - plain CSS, ships as-is. Deploys free on Vercel.
 
 ---
 
@@ -32,7 +32,7 @@ Vercel in minutes. Personalize the entire site by editing a single config file.
 
 | Route | What it is |
 |---|---|
-| `/` | Home — bio, avatar, social links |
+| `/` | Home - bio, avatar, social links |
 | `/blogs` | List of all posts, newest first |
 | `/blogs/<slug>` | A single article |
 | `/building` | Your public GitHub repos, live |
@@ -102,7 +102,7 @@ That's the whole personalization. No template editing required.
 
 ## Writing posts
 
-Add a Markdown file to `posts/`. The filename is the URL slug — `posts/my-first-post.md`
+Add a Markdown file to `posts/`. The filename is the URL slug - `posts/my-first-post.md`
 becomes `/blogs/my-first-post`.
 
 ```markdown
@@ -116,7 +116,7 @@ Your **Markdown** content starts here...
 ```
 
 Only `title` and `date` are required. Dates accept `YYYY-MM-DD`, `DD-MM-YYYY`,
-or `DD/MM/YYYY` — all normalized for the sitemap. See `posts/welcome.md` for a
+or `DD/MM/YYYY` - all normalized for the sitemap. See `posts/welcome.md` for a
 full example. Delete the two sample posts when you're ready.
 
 ---
@@ -138,9 +138,9 @@ Categories become filter buttons automatically.
 ## Deploy to Vercel (free)
 
 1. Push your repo to GitHub.
-2. Go to [vercel.com](https://vercel.com) → **Add New Project** → import your repo.
+2. Go to [vercel.com](https://vercel.com) -> **Add New Project** -> import your repo.
 3. Vercel auto-detects `vercel.json`. Click **Deploy**.
-4. Add your custom domain under **Settings → Domains** (optional).
+4. Add your custom domain under **Settings -> Domains** (optional).
 
 To set a production secret key, add an environment variable `SECRET_KEY` in
 Vercel's project settings (see `.env.example`).
@@ -161,25 +161,25 @@ The route `/google1234567890abcdef.html` is then served automatically. Submit
 ## Project structure
 
 ```
-config.py                 ← edit this to personalize everything
-wsgi.py                   ← entry point
-vercel.json               ← Vercel deploy config
+config.py                 <- edit this to personalize everything
+wsgi.py                   <- entry point
+vercel.json               <- Vercel deploy config
 requirements.txt
-posts/                    ← your Markdown posts
-data/bookmarks.json       ← your bookmarks
+posts/                    <- your Markdown posts
+data/bookmarks.json       <- your bookmarks
 app/
-├── __init__.py           ← app factory, loads config
-├── utils.py              ← Markdown + front-matter parser
-├── routes/__init__.py    ← all routes
+├── __init__.py           <- app factory, loads config
+├── utils.py              <- Markdown + front-matter parser
+├── routes/__init__.py    <- all routes
 ├── static/
 │   ├── css/style.css
-│   ├── images/           ← avatar.png, og-cover.png
+│   ├── images/           <- avatar.png, og-cover.png
 │   └── files/cv.pdf
 └── templates/
-    ├── base.html         ← shared layout, navbar, SEO
-    ├── _icons.html       ← social icon SVGs
-    ├── index.html        ← home
-    ├── blog/             ← list + single post
+    ├── base.html         <- shared layout, navbar, SEO
+    ├── _icons.html       <- social icon SVGs
+    ├── index.html        <- home
+    ├── blog/             <- list + single post
     ├── bookmarks.html, building.html, lectures.html, resume.html
     └── 404.html
 ```
@@ -188,17 +188,17 @@ app/
 
 ## Tech stack
 
-- **Flask 3** — web framework
-- **Python-Markdown** — post rendering
-- **Pygments** — code syntax highlighting
-- **Vanilla CSS + JS** — no build tooling
-- **Gunicorn** — production WSGI server
+- **Flask 3** - web framework
+- **Python-Markdown** - post rendering
+- **Pygments** - code syntax highlighting
+- **Vanilla CSS + JS** - no build tooling
+- **Gunicorn** - production WSGI server
 
 ---
 
 ## License
 
-MIT — free to use, modify, and share. See [LICENSE](LICENSE).
+MIT - free to use, modify, and share. See [LICENSE](LICENSE).
 
 If you build something with this, a link back to the original repo is
 appreciated but not required. 🙂
