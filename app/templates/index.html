@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% from '_icons.html' import social_icon %}
+{% set active = 'home' %}
+
+{% block seo_title %}{{ site.name }} - {{ site.job_title }}{% endblock %}
+{% block seo_desc %}{{ site.seo_description }}{% endblock %}
+{% block og_title %}{{ site.name }} - {{ site.job_title }}{% endblock %}
+{% block og_desc %}{{ site.seo_description }}{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ site.name | tojson }},
+  "alternateName": {{ site.first_name | tojson }},
+  "url": {{ site.domain | tojson }},
+  "image": "{{ site.domain }}/static/images/avatar.png",
+  "jobTitle": {{ site.job_title | tojson }},
+  "description": {{ site.seo_description | tojson }}{% if site.education and site.education.name %},
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": {{ site.education.name | tojson }},
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": {{ site.education.locality | tojson }},
+      "addressCountry": {{ site.education.country | tojson }}
+    }
+  }{% endif %},
+  "sameAs": [{% for s in socials %}{{ s.url | tojson }}{% if not loop.last %}, {% endif %}{% endfor %}],
+  "knowsAbout": [{% for k in site.knows_about %}{{ k | tojson }}{% if not loop.last %}, {% endif %}{% endfor %}]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="intro">
+    <img class="avatar"
+         src="{{ url_for('static', filename='images/avatar.png') }}"
+         alt="{{ site.name }}"
+         onerror="this.src='https://github.com/{{ site.github_username }}.png?size=144'">
+    <p class="greeting">Hey, I'm {{ site.first_name }}.</p>
+    <p>{{ site.bio_line_1 }}</p>
+    <p>{{ site.bio_line_2 }}</p>
+    <div class="intro-links">
+        <a href="{{ url_for('public.building') }}">
+            <span>See what I'm building</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8L22 12L18 16"/><path d="M2 12H22"/>
+            </svg>
+        </a>
+        <a href="{{ url_for('public.blogs_list') }}">
+            <span>Read the blog</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8L22 12L18 16"/><path d="M2 12H22"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<hr class="divider">
+
+<div class="find-me">
+    <p class="label">Find me on</p>
+    <div class="social-row">
+        {% for s in socials %}
+        <a class="social-link" href="{{ s.url }}" target="_blank" rel="noopener">
+            {{ social_icon(s.icon) }}
+            <span>{{ s.label }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

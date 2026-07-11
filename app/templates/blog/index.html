@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% set active = 'blog' %}
+{% block seo_title %}Blog - {{ site.name }}{% endblock %}
+{% block seo_desc %}Articles by {{ site.name }}. {{ site.seo_description }}{% endblock %}
+
+{% block content %}
+<h1 class="page-title-centered">Blog</h1>
+<div class="post-list">
+    {% for post in posts %}
+    <a class="post-row" href="{{ url_for('public.blog_detail', slug=post.slug) }}">
+        <span class="post-row-title">{{ post.title }}</span>
+        <time class="post-row-date" datetime="{{ post.date }}">{{ post.date }}</time>
+    </a>
+    {% else %}
+    <div class="empty-state"><p>No posts yet.</p></div>
+    {% endfor %}
+</div>
+{% endblock %}

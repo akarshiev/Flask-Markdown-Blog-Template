@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Spring Boot Reference Documentation",
+    "url": "https://docs.spring.io/spring-boot/docs/current/reference/html/",
+    "category": "Java"
+  },
+  {
+    "title": "Baeldung — Java & Spring tutorials",
+    "url": "https://www.baeldung.com",
+    "category": "Java"
+  },
+  {
+    "title": "roadmap.sh — Backend roadmap",
+    "url": "https://roadmap.sh/backend",
+    "category": "Career"
+  },
+  {
+    "title": "PostgreSQL 16 Documentation",
+    "url": "https://www.postgresql.org/docs/16/",
+    "category": "Database"
+  },
+  {
+    "title": "Docker Docs",
+    "url": "https://docs.docker.com",
+    "category": "DevOps"
+  },
+  {
+    "title": "Lucide Icons",
+    "url": "https://lucide.dev/icons/",
+    "category": "Design"
+  },
+  {
+    "title": "Fly.io Docs",
+    "url": "https://fly.io/docs/",
+    "category": "DevOps"
+  },
+  {
+    "title": "Architecture Patterns with Python (Cosmic Python)",
+    "url": "https://www.cosmicpython.com",
+    "category": "Architecture"
+  },
+  {
+    "title": "Spring Security Reference",
+    "url": "https://docs.spring.io/spring-security/reference/index.html",
+    "category": "Java"
+  },
+  {
+    "title": "Redis Documentation",
+    "url": "https://redis.io/docs/",
+    "category": "Database"
+  }
+]

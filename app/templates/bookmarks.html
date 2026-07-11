@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% set active = 'bookmarks' %}
+{% block seo_title %}Bookmarks - {{ site.name }}{% endblock %}
+{% block seo_desc %}Useful links and resources collected by {{ site.name }}.{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Bookmarks</h1>
+<p class="page-subtitle">Useful things I've found on the internet.</p>
+
+{% if categories %}
+<div class="filter-bar">
+    <button class="filter-btn active" data-cat="all" onclick="filterBm(this)">All</button>
+    {% for cat in categories %}
+    <button class="filter-btn" data-cat="{{ cat }}" onclick="filterBm(this)">#{{ cat }}</button>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="bookmark-list" id="bmList">
+    {% for bm in bookmarks %}
+    <a class="bookmark-row" href="{{ bm.url }}" target="_blank" rel="noopener"
+       data-category="{{ bm.category }}">
+        <span class="bookmark-row-title">{{ bm.title }}</span>
+        <span class="bookmark-row-domain">
+            {{ bm.url | replace('https://','') | replace('http://','') | truncate(30,True,'') }}
+        </span>
+    </a>
+    {% else %}
+    <div class="empty-state"><p>No bookmarks yet.</p></div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/* Class-based filter — avoids display-type conflicts with inline styles */
+function filterBm(btn) {
+    var cat = btn.dataset.cat;
+    document.querySelectorAll('.filter-btn')
+            .forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    document.querySelectorAll('#bmList .bookmark-row')
+            .forEach(function (row) {
+                var show = (cat === 'all' || row.dataset.category === cat);
+                row.classList.toggle('bm-hidden', !show);
+            });
+}
+</script>
+{% endblock %}

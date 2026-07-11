@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% set active = 'resume' %}
+{% block seo_title %}Resume - {{ site.name }}{% endblock %}
+{% block seo_desc %}Resume of {{ site.name }} — {{ site.job_title }}.{% endblock %}
+
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;
+            margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+    <h1 class="page-title" style="margin-bottom:0;">Resume</h1>
+    <a href="{{ url_for('public.cv_download') }}"
+       style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;
+              background:var(--accent);color:#0d0d0f;border-radius:8px;
+              text-decoration:none;font-weight:600;font-size:0.9rem;flex-shrink:0;
+              transition:background 0.2s ease;"
+       onmouseover="this.style.background='var(--accent-hover)'"
+       onmouseout="this.style.background='var(--accent)'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download PDF
+    </a>
+</div>
+
+<div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+    <object
+        data="{{ url_for('static', filename='files/cv.pdf') }}"
+        type="application/pdf"
+        style="width:100%;height:85vh;display:block;">
+        <div style="padding:40px;text-align:center;color:var(--text-muted);">
+            <p style="margin-bottom:16px;">Your browser cannot display PDFs inline.</p>
+            <a href="{{ url_for('public.cv_download') }}"
+               style="color:var(--accent);font-weight:600;">Download Resume →</a>
+        </div>
+    </object>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% set active = 'building' %}
+{% block seo_title %}Building - {{ site.name }}{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Building</h1>
+<p class="page-subtitle">
+    Public repositories from
+    <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener"
+       style="color:var(--accent);text-decoration:none;">@{{ site.github_username }}</a>
+    — synced live from GitHub.
+</p>
+
+<div class="project-grid">
+    {% for r in repos %}
+    <a class="project-card" href="{{ r.url }}" target="_blank" rel="noopener">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div class="project-name">{{ r.name }}</div>
+            {% if r.stars > 0 %}
+            <span style="font-size:0.8rem;color:var(--accent);">★ {{ r.stars }}</span>
+            {% endif %}
+        </div>
+        {% if r.description %}
+        <p class="project-desc">{{ r.description }}</p>
+        {% endif %}
+        <div style="display:flex;gap:10px;align-items:center;margin-top:10px;">
+            {% if r.language %}
+            <span class="project-lang">{{ r.language }}</span>
+            {% endif %}
+            <span style="font-size:0.75rem;color:var(--text-muted);">{{ r.updated }}</span>
+        </div>
+    </a>
+    {% else %}
+    <div class="empty-state">
+        <p>Could not load repositories right now.</p>
+        <p style="margin-top:8px;">
+            <a href="https://github.com/{{ site.github_username }}" target="_blank"
+               style="color:var(--accent);">View on GitHub →</a>
+        </p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
